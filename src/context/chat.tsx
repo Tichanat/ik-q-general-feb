@@ -102,7 +102,7 @@ export const ChatProvider = ({ children }: TChatProvider) => {
   const [currentTools, setCurrentTools] = useState<TToolResponse[]>([]);
   const [abortController, setAbortController] = useState<AbortController | null>(null);
   const lastCommittedMessage = useRef<TChatMessage | undefined>(undefined);
-
+  const isImageGenEnabled = preferences.defaultPlugins?.includes("image_generation");
   const updateCurrentMessage = (update: Partial<TChatMessage>) => {
     setCurrentMessage((prev) => (prev ? { ...prev, ...update } : prev));
   };
@@ -270,7 +270,7 @@ export const ChatProvider = ({ children }: TChatProvider) => {
     }
     // (You can add forced web_search similarly if needed.)
 
-    console.log("Available Tools =>", availableTools);
+    // console.log("Available Tools =>", availableTools);
 
     const modelInstance = await createInstance(modelEntry, theApiKey);
 
@@ -300,7 +300,7 @@ export const ChatProvider = ({ children }: TChatProvider) => {
         prompt,
         streamRunnable: true,
       });
-      console.log("Agent with tool =>", agentWithTool);
+      // console.log("Agent with tool =>", agentWithTool);
       agentExecutor = new AgentExecutor({
         agent: agentWithTool,
         tools: availableTools,
@@ -334,9 +334,9 @@ export const ChatProvider = ({ children }: TChatProvider) => {
                 });
               },
               handleToolEnd(output, runId, parentRunId, tags) {
-                  console.log("🛠️ Tool Execution Completed. Output:", output);
+                  // console.log("🛠️ Tool Execution Completed. Output:", output);
                   if (output && typeof output === "string" && output.includes("http")) {
-                      console.log("🖼️ Image URL Detected:", output);
+                      // console.log("🖼️ Image URL Detected:", output);
                   } else {
                       console.log("⚠️ No Image URL Found in Output");
                   }

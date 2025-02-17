@@ -52,9 +52,8 @@ export const AIMessage = ({ chatMessage, isLast }: TAIMessage) => {
   const { selectedText } = useTextSelection();
 
   const isToolRunning = !!tools?.filter((t) => !!t?.toolLoading)?.length;
-  const isImageGeneration = tools?.some((tool) => tool.toolName === "image_generation");
-  const imageUrlMatch = rawAI?.match(/(https?:\/\/[^\s)]+)/);
-  const extractedImageUrl = imageUrlMatch ? imageUrlMatch[1] : null;
+  const imageUrlMatch = rawAI?.match(/https:\/\/oaidalleapiprodscus\.blob\.core\.windows\.net\/[^\s)]+/);
+  const extractedImageUrl = imageUrlMatch ? imageUrlMatch[0] : null;
   const renderTool = (tool: TToolResponse) => {
     const toolUsed = tool?.toolName
       ? getToolInfoByKey(tool?.toolName)
@@ -143,6 +142,9 @@ export const AIMessage = ({ chatMessage, isLast }: TAIMessage) => {
     }
   };
 
+  // console.log("🖼️ isImageGeneration:", isImageGeneration);
+  // console.log("🖼️ extractedImageUrl:", extractedImageUrl);
+
   return (
     <div className="flex flex-row mt-6 w-full">
       <div className="p-2 md:px-3 md:py-2">
@@ -167,9 +169,8 @@ export const AIMessage = ({ chatMessage, isLast }: TAIMessage) => {
                 <article className="prose dark:prose-invert w-full prose-zinc prose-h3:font-medium prose-h4:font-medium prose-h5:font-medium prose-h6:font-medium prose-h3:text-lg prose-h4:text-base prose-h5:text-base prose-h6:text-base prose-heading:font-medium prose-strong:font-medium prose-headings:text-lg prose-th:text-sm">
                   {renderMarkdown(rawAI, !!isLoading, id)}
                 </article>
-
                 {/* ✅ Image Rendering - Wrapped inside the div */}
-                {isImageGeneration && extractedImageUrl && (
+                { extractedImageUrl && (
                   <img
                     src={extractedImageUrl}
                     alt="Generated Image"

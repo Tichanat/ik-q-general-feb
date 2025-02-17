@@ -27,7 +27,7 @@ export const ChatGreeting = () => {
           <WavingHand02Icon size={32} variant="stroke" strokeWidth="2" />
           Hello,
         </span>
-        How can IK-Q help you today? ☕️✧˚⋆🧙
+        How can IK-Q help you today?
       </motion.h1>
     </div>
   );
