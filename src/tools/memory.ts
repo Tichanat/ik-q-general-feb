@@ -38,7 +38,7 @@ const memoryTool = (args: TToolArg) => {
         }
 
         const model = new ChatOpenAI({
-          model: "gpt-3.5-turbo",
+          model: "gpt-4o",
           apiKey, // Use env key
         });
 
@@ -47,7 +47,7 @@ const memoryTool = (args: TToolArg) => {
             `Here is new information: {new_memory} \n and update the following information if required otherwise add new information: """{existing_memory}""" \n{format_instructions} `
           ),
           new ChatOpenAI({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4o",
             apiKey, // Use env key
           }),
           memoryParser as any,
