@@ -331,7 +331,7 @@ export const useModelList = () => {
       maxOutputTokens: 8190,
     },
     {
-      name: "Gemini Flash Pro 2.5",
+      name: "Gemini Pro 2.5",
       key: "gemini-2.5-pro-preview-05-06",
       isNew: true,
       inputPrice: 3.5,
